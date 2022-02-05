@@ -2,29 +2,33 @@ import random
 from random import randrange
 import string
 
-def function(n):
-   mydict = {}
-   ABC = ['abcdefghijklmnopqrstuvwxyz']
-   for i in range(n):
-      for letter in string.ascii_lowercase:
-         #mydict[str(i)] = randrange(10)
-         mydict[letter] = randrange(10)
-   return mydict
 
-print(function(5))
-
-letters = string.ascii_lowercase
-print(letters)
-mydict1 = {}
-mydict2= {}
-for i in range(5):
-   mydict1[random.choice(string.ascii_letters).lower()] = randrange(100)
-   #mydict2[random.choice(string.ascii_letters).lower()] = randrange(100)
-
+mydict = {}
 mylist = []
-mylist.append(mydict1)
-#mylist.append(mydict2)
-print (mydict1)
-#print (mydict2)
-print(mylist)
+for i in range(random.randint(2, 10)):
+   mydict[random.choice(string.ascii_letters).lower()] = randrange(100) #random letter for keys
+   mylist.append(mydict) #add dictionary to the list
+
+print("Task1. List of random number of dicts ", mylist)
+
+# initialize the final dictionary
+final_dict, tmp_dict = {},  {}
+
+#Transform from list of dicts into dict of lists.
+for dictionary in mylist:
+  for k, v in dictionary.items():
+    tmp_dict.setdefault(k, []).append(v) #returns the key value available in the dictionary and if given key is not available then it will return provided default value.
+
+#choose the biggest one
+for k, v in tmp_dict.items():
+  if len(v) > 1:
+    final_dict[k+"_"+str(v.index(max(v))+1)] = max(v)
+  else: final_dict[k] = v[0]
+
+# print result
+print("Task2. Common dictionary:", final_dict)
+
+
+
+
 
